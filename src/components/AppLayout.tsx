@@ -20,6 +20,29 @@ import MailIcon from "@mui/icons-material/Mail";
 import { Link, Outlet } from "react-router-dom";
 
 const drawerWidth = 240;
+type MenuLink = {
+  title: string;
+  link: string;
+}
+
+const mainMenu: Array<MenuLink> = [
+  {
+    title: 'Transactions',
+    link: 'transactions'
+  },
+  {
+    title: 'Accounts',
+    link: 'accounts'
+  },
+  {
+    title: 'Reports',
+    link: 'reports'
+  },
+  {
+    title: 'Suspend tech click me! :)',
+    link: 'suspend'
+  },
+]
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
   open?: boolean;
@@ -125,26 +148,16 @@ const AppLayout = () => {
         </DrawerHeader>
         <Divider />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem component={Link} to={"/transactions"} button key={text}>
+          {mainMenu.map((item, index: number) => (
+            <ListItem component={Link} to={`/${item.link}`} button key={item.link}>
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={item.title} />
             </ListItem>
           ))}
         </List>
         <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
